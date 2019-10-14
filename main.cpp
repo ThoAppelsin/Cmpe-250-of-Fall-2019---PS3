@@ -18,7 +18,7 @@ void main1() {
     copy_of_me.age = 30;
     reference_to_me.age = 40;
 
-    std::cout << "Hello, World!" << me.age << std::endl;
+    std::cout << "Hello, World!!!" << me.age << std::endl;
 }
 
 void main2() {
@@ -53,8 +53,17 @@ int main() {
         vec.append(Student{"Utkan", 26});
         vec.append(Student{"Ayse", 20});
 
+        Student& ayse = vec.pop();
+        ayse.age++;
+
+        MyVector<Student> v2 = vec;
+        MyVector<Student> v3{vec};
+
+        vec.append(Student{"Okan", 45});
+
         std::cout << vec.get(0).age << std::endl
-                  << vec.get(1).age << std::endl;
+                  << vec.get(1).age << std::endl
+                  << ayse.age << std::endl;
     }
     
     return 0;

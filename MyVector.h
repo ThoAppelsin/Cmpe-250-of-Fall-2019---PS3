@@ -13,7 +13,7 @@ class MyVector {
 private:
     int size;
     T * storage;
-    int last_element;
+    int last_element_index;
 
     // Template function definitions should stay in .h file!
     void expand(int newsize) {
@@ -34,7 +34,7 @@ private:
         else if (index < size) {
             // *(storage + index) == storage[index] == index[sotrage]
             storage[index] = value;
-            if (index > last_element) last_element = index;
+            if (index > last_element_index) last_element_index = index;
         }
         else {
             int newsize = 2 * index;
@@ -43,11 +43,24 @@ private:
         }
     }
 
+    MyVector<T>& operator=(MyVector<T>& other) {
+        size = other.size;
+        last_element_index = other.last_element_index;
+        storage = new T[size];
+        for (int i = 0; i <= last_element_index; i++) {
+            storage[i] = other.storage[i];
+        }
+    }
+
 public:
     MyVector() {
         size = 10;
-        last_element = -1;
+        last_element_index = -1;
         storage = new T[size];
+    }
+
+    MyVector(MyVector<T>& other) {
+        *this = other;
     }
 
     ~MyVector() {
@@ -55,25 +68,25 @@ public:
     }
 
     void append(const T& value) {
-        set(last_element + 1, value);
+        set(last_element_index + 1, value);
     }
 
-    T pop() {
-        if (last_element >= 0) {
-            return storage[last_element--];
+    T& pop() {
+        if (last_element_index >= 0) {
+            return storage[last_element_index--];
         }
         else {
             throw std::out_of_range("Popping from an empty MyVector");
         }
     }
 
-    T get(int index) {
-        if (0 <= index && index <= last_element) {
+    T& get(int index) {
+        if (0 <= index && index <= last_element_index) {
             return storage[index];
         }
         else {
             throw std::out_of_range("Index " + std::to_string(index) +
-                                    " is out of bounds [0, " + std::to_string(last_element) + "]");
+                                    " is out of bounds [0, " + std::to_string(last_element_index) + "]");
         }
     }
 };
