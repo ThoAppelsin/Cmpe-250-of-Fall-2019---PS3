@@ -56,7 +56,8 @@ int main() {
         Student& ayse = vec.pop();
         ayse.age++;
 
-        MyVector<Student> v2 = vec;
+        MyVector<Student> v2;
+        v2 = vec;
         MyVector<Student> v3{vec};
 
         vec.append(Student{"Okan", 45});
