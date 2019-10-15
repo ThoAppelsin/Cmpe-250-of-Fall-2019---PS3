@@ -12,7 +12,7 @@ template <class T>
 class MyVector {
 private:
     int size;
-    T * storage;
+    T * storage = NULL;
     int last_element_index;
 
     // Template function definitions should stay in .h file!
@@ -61,6 +61,9 @@ public:
     MyVector<T>& operator=(MyVector<T>& other) {
         size = other.size;
         last_element_index = other.last_element_index;
+        if (storage != NULL) {
+            delete[] storage; // This fixes the leak
+        }
         storage = new T[size];
         for (int i = 0; i <= last_element_index; i++) {
             storage[i] = other.storage[i];
