@@ -61,13 +61,14 @@ public:
     MyVector<T>& operator=(MyVector<T>& other) {
         size = other.size;
         last_element_index = other.last_element_index;
-        if (storage != NULL) {
+        if (storage != nullptr) {
             delete[] storage; // This fixes the leak
         }
         storage = new T[size];
         for (int i = 0; i <= last_element_index; i++) {
             storage[i] = other.storage[i];
         }
+        return *this;
     }
 
     void append(const T& value) {
